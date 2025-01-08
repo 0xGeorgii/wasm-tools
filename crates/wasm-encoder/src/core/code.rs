@@ -379,6 +379,7 @@ pub enum Instruction<'a> {
     Nop,
     Block(BlockType),
     Loop(BlockType),
+    Forall(BlockType),
     If(BlockType),
     Else,
     End,
@@ -1245,6 +1246,11 @@ impl Encode for Instruction<'_> {
             }
             Instruction::Loop(bt) => {
                 sink.push(0x03);
+                bt.encode(sink);
+            }
+            Instruction::Forall(bt) => {
+                sink.push(0xfc);
+                sink.push(0x0a);
                 bt.encode(sink);
             }
             Instruction::If(bt) => {
