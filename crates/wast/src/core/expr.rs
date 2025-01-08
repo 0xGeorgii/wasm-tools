@@ -232,6 +232,10 @@ impl<'a> ExpressionParser<'a> {
                         // seen
                         i @ Instruction::Block(_)
                         | i @ Instruction::Loop(_)
+                        | i @ Instruction::Forall(_)
+                        | i @ Instruction::Exists(_)
+                        | i @ Instruction::Assume(_)
+                        | i @ Instruction::Unique(_)
                         | i @ Instruction::TryTable(_) => {
                             self.push_instr(i, span);
                             self.stack
@@ -508,6 +512,11 @@ instructions! {
         Else(Option<Id<'a>>) : [0x05] : "else",
         Loop(Box<BlockType<'a>>) : [0x03] : "loop",
         End(Option<Id<'a>>) : [0x0b] : "end",
+
+        Forall(Box<BlockType<'a>>) : [0xfc, 0x0A] : "forall",
+        Exists(Box<BlockType<'a>>) : [0xfc, 0x0B] : "exists",
+        Assume(Box<BlockType<'a>>) : [0xfc, 0x0C] : "assume",
+        Unique(Box<BlockType<'a>>) : [0xfc, 0x0D] : "unique",
 
         Unreachable : [0x00] : "unreachable",
         Nop : [0x01] : "nop",

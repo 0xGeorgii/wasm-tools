@@ -477,7 +477,8 @@ impl<'a, 'b> ExprResolver<'a, 'b> {
                 self.resolver.resolve(i, Ns::Type)?;
             }
 
-            Block(bt) | If(bt) | Loop(bt) | Try(bt) => {
+            Block(bt) | If(bt) | Loop(bt) | Forall(bt) | Exists(bt) | Assume(bt) | Unique(bt)
+            | Try(bt) => {
                 self.blocks.push(ExprBlock {
                     label: bt.label,
                     pushed_scope: false,

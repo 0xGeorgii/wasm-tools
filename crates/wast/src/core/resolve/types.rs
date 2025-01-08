@@ -140,6 +140,10 @@ impl<'a> Expander<'a> {
             Instruction::Block(bt)
             | Instruction::If(bt)
             | Instruction::Loop(bt)
+            | Instruction::Forall(bt)
+            | Instruction::Exists(bt)
+            | Instruction::Assume(bt)
+            | Instruction::Unique(bt)
             | Instruction::Try(bt)
             | Instruction::TryTable(TryTable { block: bt, .. }) => {
                 // No expansion necessary, a type reference is already here.
