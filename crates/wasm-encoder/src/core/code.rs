@@ -380,6 +380,9 @@ pub enum Instruction<'a> {
     Block(BlockType),
     Loop(BlockType),
     Forall(BlockType),
+    Exists(BlockType),
+    Assume(BlockType),
+    Unique(BlockType),
     If(BlockType),
     Else,
     End,
@@ -1251,6 +1254,21 @@ impl Encode for Instruction<'_> {
             Instruction::Forall(bt) => {
                 sink.push(0xfc);
                 sink.push(0x0a);
+                bt.encode(sink);
+            }
+            Instruction::Exists(bt) => {
+                sink.push(0xfc);
+                sink.push(0x0b);
+                bt.encode(sink);
+            }
+            Instruction::Assume(bt) => {
+                sink.push(0xfc);
+                sink.push(0x0c);
+                bt.encode(sink);
+            }
+            Instruction::Unique(bt) => {
+                sink.push(0xfc);
+                sink.push(0x0d);
                 bt.encode(sink);
             }
             Instruction::If(bt) => {
